@@ -8,11 +8,21 @@ class Thread extends Model
 {
     public function path()
     {
-        return '/thread/' . $this->getKey();
+        return '/threads/' . $this->getKey();
     }
 
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function addReply(array $reply)
+    {
+        $this->replies()->create($reply);
     }
 }
